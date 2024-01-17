@@ -92,17 +92,24 @@ def send_to_chatgpt(
 		'messages': messages,
 		'n': num_choices
 	}
-	response = requests.post(api_url, json=data, headers=headers)
-	if response.status_code == 200:
-		json_response = response.json()
-		choices = [choice.get('message', {}).get('content').strip() for choice in json_response.get('choices', [])]
-		return choices
-	else:
-		print("Error with API request:")
-		print("Status Code:", response.status_code)
-		print("Response:", response.text)
-		raise Exception("Error in API request")
-	
+	try:
+		response = requests.post(api_url, json=data, headers=headers)
+		if response.status_code == 200:
+			json_response = response.json()
+			choices = [choice.get('message', {}).get('content').strip() for choice in json_response.get('choices', [])]
+			return choices
+		else:
+			raise ApiRequestException(response.status_code, response.text)
+	except (requests.exceptions.RequestException, ApiRequestException) as e:
+		print("\nFailed to send messages to chatgpt:", e)
+		retry = input("\nRetry? (y/n):\n\n> ").lower()
+		if retry == 'y':
+			return send_to_chatgpt(messages, api_key, num_choices, model)
+		else:
+			print("\nAborting.")
+			sys.exit(1)
+
+# Get compact git log output and limit the number of lines
 def git_log_summary(max_lines=10):
 	try:
 		return subprocess.check_output(
@@ -116,7 +123,7 @@ def git_log_summary(max_lines=10):
 		return e.output
 
 
-# Get the git diff output and limit the number of lines per file and total number of lines
+# Get git diff output and limit the number of lines per file and total number of lines
 def git_diff_summary(max_lines_per_file=50, total_max_lines=500):
 	# Execute git diff and capture the output
 	diff_output = subprocess.check_output(['git', 'diff', '--cached'], text=True)
@@ -170,6 +177,12 @@ def print_choices(choices):
 # Exception raised when no API key is provided
 class NoApiTokenException(Exception):
 	pass
+
+# Exception raised when API request fails
+class ApiRequestException(Exception):
+	def __init__(self, status_code, response):
+		self.status_code = status_code
+		self.response = response
 
 def main():
 	# Get git log summary:
