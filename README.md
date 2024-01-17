@@ -45,3 +45,27 @@ You selected: Write initial unit tests
 
 Commit successful.
 ```
+
+Of course, the commit messages in this repo are made using commitgpt.py:
+
+```
+commitgpt $ git add .
+commitgpt $ commitgpt 
+
+1. Add README.md and commitgpt.py for automated commit message generation
+2. Add README.md and initial version of commitgpt.py script
+3. Initialize repository with README and commitgpt.py script
+
+Choose an option (1-3), type nothing to abort, anything else to continue chat:
+
+> 2
+
+You selected: Add README.md and initial version of commitgpt.py script
+
+[dev (root-commit) 1b9b287] Add README.md and initial version of commitgpt.py script
+ 2 files changed, 256 insertions(+)
+ create mode 100644 README.md
+ create mode 100755 commitgpt.py
+
+Commit successful.
+```
