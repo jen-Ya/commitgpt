@@ -1,11 +1,11 @@
 **Summary**
 
-Sends git log and git diff summaries to chatgpt, along with an optional hint for the commit message and proposes 3 commit messages.
+Sends git log and git diff summaries to ChatGPT, along with an optional hint for the commit message and proposes 3 commit messages.
 You can chose one of the proposed messages or continue the chat to get other proposals.
 
 Small and hackable vanilla Python script, without any package dependencies.
 
-The only requirement is a OpenAI API key.
+The only requirement is an OpenAI API key.
 
 <img src="commitgpt.svg" />
 
