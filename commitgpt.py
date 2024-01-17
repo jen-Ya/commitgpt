@@ -40,6 +40,7 @@ GIT_LOG_LIMIT=10
 # Limit the number of lines per file and total number of lines in git diff summary
 GIT_DIFF_LINES_PER_FILE_LIMIT=50
 GIT_DIFF_TOTAL_LINES_LIMIT=500
+GIT_DIFF_TOTAL_CHARS_LIMIT=10000
 
 # Main function to interact with the user and process commit messages
 def run(messages):
@@ -131,7 +132,11 @@ def git_log_summary(max_lines=GIT_LOG_LIMIT):
 
 
 # Get git diff output and limit the number of lines per file and total number of lines
-def git_diff_summary(max_lines_per_file=GIT_DIFF_LINES_PER_FILE_LIMIT, total_max_lines=GIT_DIFF_TOTAL_LINES_LIMIT):
+def git_diff_summary(
+	max_lines_per_file=GIT_DIFF_LINES_PER_FILE_LIMIT,
+	total_max_lines=GIT_DIFF_TOTAL_LINES_LIMIT,
+	total_max_chars=GIT_DIFF_TOTAL_CHARS_LIMIT,
+):
 	# Execute git diff and capture the output
 	diff_output = subprocess.check_output(['git', 'diff', '--cached'], text=True)
 	
@@ -156,7 +161,10 @@ def git_diff_summary(max_lines_per_file=GIT_DIFF_LINES_PER_FILE_LIMIT, total_max
 	if total_lines + len(current_file_lines) <= total_max_lines:
 		limited_output.extend(current_file_lines)
 
-	return '\n'.join(limited_output)
+	output = '\n'.join(limited_output)
+	if len(output) > total_max_chars:
+		output = output[:total_max_chars]
+	return output
 
 # Function to commit changes in Git with a given message
 def commit_with_message(commit_message):

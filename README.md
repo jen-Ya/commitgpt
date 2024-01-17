@@ -99,3 +99,4 @@ Limits of `git diff` and `git log` context, that are sent to ChatGPT:
 `GIT_LOG_LIMIT`
 `GIT_DIFF_LINES_PER_FILE_LIMIT`
 `GIT_DIFF_TOTAL_LINES_LIMIT`
+`GIT_DIFF_TOTAL_CHARS_LIMIT`
