@@ -82,3 +82,18 @@ You selected: Add README.md and initial version of commitgpt.py script
 
 Commit successful.
 ```
+
+**Tweaking**
+
+You can change the globals at the start of the script:
+
+`INITIAL_PROMPT` Specifies commit message guidlines and requirements
+`NUM_CHOICES` Number of choices chatgpt will provide
+
+`API_KEY` Is read from environment `OPENAI_API_KEY`, but you can also hard code it
+
+Limits of `git diff` and `git log` context, that are sent to ChatGPT:
+
+`GIT_LOG_LIMIT`
+`GIT_DIFF_LINES_PER_FILE_LIMIT`
+`GIT_DIFF_TOTAL_LINES_LIMIT`

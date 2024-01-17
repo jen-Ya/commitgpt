@@ -34,6 +34,13 @@ NUM_CHOICES = 3
 # OpenAI API key
 API_KEY=os.getenv('OPENAI_API_KEY')
 
+# Limit the number of lines in git log summary
+GIT_LOG_LIMIT=10
+
+# Limit the number of lines per file and total number of lines in git diff summary
+GIT_DIFF_LINES_PER_FILE_LIMIT=50
+GIT_DIFF_TOTAL_LINES_LIMIT=500
+
 # Main function to interact with the user and process commit messages
 def run(messages):
 	choices = send_to_chatgpt(messages)
@@ -110,7 +117,7 @@ def send_to_chatgpt(
 			sys.exit(1)
 
 # Get compact git log output and limit the number of lines
-def git_log_summary(max_lines=10):
+def git_log_summary(max_lines=GIT_LOG_LIMIT):
 	try:
 		return subprocess.check_output(
 			['git', 'log', '--oneline', '-n', str(max_lines)],
@@ -124,7 +131,7 @@ def git_log_summary(max_lines=10):
 
 
 # Get git diff output and limit the number of lines per file and total number of lines
-def git_diff_summary(max_lines_per_file=50, total_max_lines=500):
+def git_diff_summary(max_lines_per_file=GIT_DIFF_LINES_PER_FILE_LIMIT, total_max_lines=GIT_DIFF_TOTAL_LINES_LIMIT):
 	# Execute git diff and capture the output
 	diff_output = subprocess.check_output(['git', 'diff', '--cached'], text=True)
 	
