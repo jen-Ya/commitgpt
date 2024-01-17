@@ -7,6 +7,8 @@ Small and hackable vanilla Python script, without any package dependencies.
 
 The only requirement is a OpenAI API key.
 
+<img src="commitgpt.svg" />
+
 **Install**
 
 Save anywhere in PATH, make it executable, add your api key as `OPENAI_API_KEY` env variable.
