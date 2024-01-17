@@ -3,6 +3,10 @@
 Sends git log and git diff summaries to chatgpt, along with an optional hint for the commit message and proposes 3 commit messages.
 You can chose one of the proposed messages or continue the chat to get other proposals.
 
+Small and hackable vanilla Python script, without any package dependencies.
+
+The only requirement is a OpenAI API key.
+
 **Install**
 
 Save anywhere in PATH, make it executable, add your api key as `OPENAI_API_KEY` env variable.
