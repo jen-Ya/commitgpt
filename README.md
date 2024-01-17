@@ -11,15 +11,24 @@ The only requirement is a OpenAI API key.
 
 Save anywhere in PATH, make it executable, add your api key as `OPENAI_API_KEY` env variable.
 
-**Example usage**
+```bash
+curl -Lo /usr/local/bin/commitgpt https://raw.githubusercontent.com/jen-Ya/commitgpt/dev/commitgpt.py
+chmod +x /usr/local/bin/commitgpt
+echo "export OPENAI_API_KEY=<YOUR_KEY>" >> .bash_profile
+```
+
+**Usage**
+
+After `git add`, instead of `git commit`, execute `commitgpt`.
+You can optionally provide a hint for the commit message as first argument, e. g. `commitgpt "I did X"`
 
 ```
 my-cool-project $ git add -u
 my-cool-project $ commitgpt
 
 1. Improve unit tests for user authentication
-5. Improve unit tests for user authentication module
-6. Write initial unit tests
+2. Improve unit tests for user authentication module
+3. Write initial unit tests
 
 Choose an option (1-3), type nothing to abort, anything else to continue chat:
 
