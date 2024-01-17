@@ -1,4 +1,4 @@
-**Summary**
+## Summary
 
 Sends git log and git diff summaries to ChatGPT, along with an optional hint for the commit message and proposes 3 commit messages.
 You can chose one of the proposed messages or continue the chat to get other proposals.
@@ -9,9 +9,11 @@ The only requirement is an OpenAI API key.
 
 <img src="commitgpt.svg" />
 
-**Install**
+## Install
 
-Save anywhere in PATH, make it executable, add your api key as `OPENAI_API_KEY` env variable.
+**Linux and Mac**
+
+Save anywhere in PATH, make it executable, add your api key as `OPENAI_API_KEY` env variable. Replace `<YOUR_KEY>` with the actual OpenAI API Key and adjust `.bash_profile` to whatever shell you use.
 
 ```bash
 curl -Lo /usr/local/bin/commitgpt https://raw.githubusercontent.com/jen-Ya/commitgpt/dev/commitgpt.py
@@ -19,7 +21,20 @@ chmod +x /usr/local/bin/commitgpt
 echo "export OPENAI_API_KEY=<YOUR_KEY>" >> .bash_profile
 ```
 
-**Usage**
+
+**Windows**
+
+Create a commitgpt.bat like this somewhere in your PATH. Replace `your_api_key_here` with the actual OpenAI API key and `C:\path\to\your-script.py` with the path to the Python script.
+
+```batch
+@echo off
+set OPENAI_API_KEY=your_api_key_here
+python C:\path\to\commitgpt.py %*
+```
+
+
+
+## Usage
 
 After `git add`, instead of `git commit`, execute `commitgpt`.
 You can optionally provide a hint for the commit message as first argument, e. g. `commitgpt "I did X"`
@@ -85,7 +100,7 @@ You selected: Add README.md and initial version of commitgpt.py script
 Commit successful.
 ```
 
-**Tweaking**
+## Tweaking
 
 You can change the globals at the start of the script:
 
