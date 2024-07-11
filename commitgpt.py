@@ -225,7 +225,7 @@ def main():
 	if len(sys.argv) >= 2:
 		messages.append({
 			'role': 'user',
-			'content': sys.argv[1],
+			'content': ' '.join(sys.argv[1:]),
 		})
 	run(messages)
 
