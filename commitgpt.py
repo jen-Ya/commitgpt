@@ -86,7 +86,7 @@ def send_to_chatgpt(
 	messages,
 	api_key=API_KEY,
 	num_choices=NUM_CHOICES,
-	model='gpt-4'
+	model='gpt-4-turbo'
 ):
 	if not api_key:
 		raise NoApiTokenException("Please set your OPENAI_API_KEY environment variable to use the OpenAI API.")
