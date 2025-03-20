@@ -4,8 +4,11 @@
 
 import sys
 import subprocess
-import requests
+import urllib.request
+import urllib.error
 import os
+import json
+
 
 # This is the initial prompt that is sent to chatgpt
 INITIAL_PROMPT = """
@@ -103,19 +106,30 @@ def send_to_chatgpt(
 		'messages': messages,
 		'n': num_choices
 	}
+	req = urllib.request.Request(
+		api_url,
+		data=json.dumps(data).encode('utf-8'),
+		headers=headers,
+		method="POST"
+	)
 	try:
-		response = requests.post(api_url, json=data, headers=headers)
-		if response.status_code == 200:
-			json_response = response.json()
-			choices = [choice.get('message', {}).get('content').strip() for choice in json_response.get('choices', [])]
-			return choices
-		else:
-			raise ApiRequestException(response.status_code, response.text)
-	except (requests.exceptions.RequestException, ApiRequestException) as e:
+		with urllib.request.urlopen(req) as response:
+			status_code = response.getcode()
+			resp_body = response.read().decode('utf-8')
+			if status_code == 200:
+				json_response = json.loads(resp_body)
+				choices = [
+					choice.get('message', {}).get('content', '').strip()
+					for choice in json_response.get('choices', [])
+				]
+				return choices
+			else:
+				raise ApiRequestException(status_code, resp_body)
+	except (urllib.error.URLError, ApiRequestException) as e:
 		print("\nFailed to send messages to chatgpt:", e)
 		retry = input("\nRetry? (y/n):\n\n> ").lower()
 		if retry == 'y':
-			return send_to_chatgpt(messages, api_key, num_choices, model)
+			return send_to_chatgpt(messages, api_url, api_key, num_choices, model)
 		else:
 			print("\nAborting.")
 			sys.exit(1)
