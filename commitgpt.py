@@ -240,7 +240,7 @@ def main():
 	if len(sys.argv) >= 2:
 		messages.append({
 			'role': 'user',
-			'content': ' '.join(sys.argv[1:]),
+			'content': 'User hint for the commit message: ' + ' '.join(sys.argv[1:]),
 		})
 	run(messages)
 
