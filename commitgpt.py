@@ -30,6 +30,7 @@ INITIAL_PROMPT = """
 	- Put the most important changes first
 	- Focus on the intent of the change, not just the code change. WHY, not how.
 	- Avoid using "refactor" or "update" as they are too vague
+	- If the users says "fix", use "Fix" in your message
 
 	Always provide only the commit message as answer.
 """
