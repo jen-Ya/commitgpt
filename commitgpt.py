@@ -131,7 +131,7 @@ def send_to_chatgpt(
 		print("\nFailed to send messages to chatgpt:", e)
 		retry = input("\nRetry? (y/n):\n\n> ").lower()
 		if retry == 'y':
-			return send_to_chatgpt(messages, api_url, api_key, num_choices, model)
+			return send_to_chatgpt(messages, api_key, num_choices, model)
 		else:
 			print("\nAborting.")
 			sys.exit(1)
