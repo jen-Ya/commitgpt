@@ -9,6 +9,7 @@ import urllib.error
 import os
 import json
 
+MODEL = 'gpt-5-nano'
 
 # This is the initial prompt that is sent to chatgpt
 INITIAL_PROMPT = """
@@ -90,7 +91,7 @@ def send_to_chatgpt(
 	messages,
 	api_key=API_KEY,
 	num_choices=NUM_CHOICES,
-	model='gpt-4-turbo'
+	model=MODEL
 ):
 	if not api_key:
 		raise NoApiTokenException("Please set your OPENAI_API_KEY environment variable to use the OpenAI API.")
